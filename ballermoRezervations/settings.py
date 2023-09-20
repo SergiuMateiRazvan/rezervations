@@ -24,6 +24,8 @@ load_dotenv(BASE_DIR / ".env")
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("SECRET_KEY")
 
+APP_NAME = 'ballermoRezervations'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -60,7 +62,7 @@ ROOT_URLCONF = 'ballermoRezervations.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / APP_NAME /  'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -129,3 +131,4 @@ DATABASES = {
     "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
 }
 
+LOGOUT_REDIRECT_URL = "index"

@@ -1,5 +1,6 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 import django_tables2 as tables
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
@@ -20,7 +21,7 @@ def index(request):
     return render(request, "index.html", {"form": form})
 
 
-class ReservationListView(tables.SingleTableView):
+class ReservationListView(LoginRequiredMixin, tables.SingleTableView):
     template_name = 'reservations_admin.html'
     paginate_by = 10
     queryset = Reservation.objects.all()
