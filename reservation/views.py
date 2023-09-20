@@ -3,14 +3,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 import django_tables2 as tables
 from django.urls import reverse_lazy
-from django.views.decorators.csrf import csrf_protect, csrf_exempt
+from django.views.decorators.csrf import csrf_exempt
 
 from .forms import AddReservationForm
 from .models import Reservation
 from .tables import ReservationsTable
 
 
-@csrf_protect
 def index(request):
     form = AddReservationForm(request.POST or None)
     if request.method == "POST":

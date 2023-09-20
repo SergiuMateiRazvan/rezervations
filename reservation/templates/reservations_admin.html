@@ -13,6 +13,12 @@
 <h1 class="h1 text-center mt-4">
     Reservations at Ballermo
 </h1>
+<div class="d-flex justify-content-end">
+    <div class="p-2 mt-lg-n4">
+        <button class="btn btn-outline-secondary"><a href="{% url 'logout' %}" class="text-decoration-none text-reset">Logout</a></button>
+    </div>
+</div>
+
 <div class="container mt-5">
     {% render_table table %}
 </div>

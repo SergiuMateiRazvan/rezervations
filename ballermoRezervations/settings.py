@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'reservation.apps.ReservationConfig',
     'bootstrap4',
     'django_tables2',
+    'corsheaders',
     'bootstrap_datepicker_plus',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -62,7 +64,7 @@ ROOT_URLCONF = 'ballermoRezervations.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / APP_NAME /  'templates'],
+        'DIRS': [BASE_DIR / APP_NAME / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -131,4 +133,6 @@ DATABASES = {
     "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
 }
 
-LOGOUT_REDIRECT_URL = "index"
+LOGOUT_REDIRECT_URL = "reservation:index"
+CSRF_TRUSTED_ORIGINS = ["https://web-production-b965.up.railway.app", "https://www.web-production-b965.up.railway.app"]
+CSRF_COOKIE_SECURE = True
