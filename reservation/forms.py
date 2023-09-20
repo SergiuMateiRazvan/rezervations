@@ -5,6 +5,8 @@ from bootstrap_datepicker_plus.widgets import DatePickerInput, TimePickerInput
 
 
 class AddReservationForm(forms.ModelForm):
+    mentions = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}), required=False)
+
     class Meta:
         model = Reservation
         fields = ('date', 'time', 'no_persons', 'customer_name', 'customer_email', 'mentions')
@@ -37,5 +39,5 @@ class AddReservationForm(forms.ModelForm):
                 }
             ),
             'no_persons': forms.NumberInput(attrs={'class': 'form-control'}),
-            'mentions': forms.Textarea(attrs={'class': 'form-control'})
+
         }

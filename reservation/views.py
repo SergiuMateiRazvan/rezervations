@@ -1,15 +1,14 @@
 from django.shortcuts import render, redirect
-from django.views import generic
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 import django_tables2 as tables
-from django.views.decorators.csrf import csrf_protect
+from django.urls import reverse_lazy
+from django.views.decorators.csrf import csrf_protect, csrf_exempt
 
 from .forms import AddReservationForm
 from .models import Reservation
 from .tables import ReservationsTable
 
 
-# Create your views here.
 @csrf_protect
 def index(request):
     form = AddReservationForm(request.POST or None)
@@ -28,4 +27,14 @@ class ReservationListView(tables.SingleTableView):
     table_class = ReservationsTable
 
 
-
+@csrf_exempt
+def delete(request):
+    print("Hello")
+    if request.method == "POST":
+        data = request.POST.dict()
+        reservation_id = data.get("id")
+        if not reservation_id:
+            pass
+        reservation = Reservation.objects.get(pk=reservation_id)
+        reservation.delete()
+    return HttpResponseRedirect(reverse_lazy("reservation:reservations_list"))

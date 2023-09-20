@@ -1,6 +1,7 @@
 import itertools
 
 import django_tables2 as tables
+from django.urls import reverse_lazy
 from django.utils.html import format_html
 from .models import Reservation
 
@@ -27,6 +28,7 @@ class ReservationsTable(tables.Table):
     confirmed = tables.Column(attrs={
         "th": {"scope": "col"}
     })
+    delete = tables.Column(verbose_name="", empty_values=(), accessor="id")
 
     class Meta:
         model = Reservation
@@ -41,5 +43,16 @@ class ReservationsTable(tables.Table):
             return "Confirmed"
         else:
             return format_html(
-                "<button class='btn btn-outline-primary'> Confirm </button>"
+                '<form method="POST" action="">\
+                    <input type="hidden" name="id" value="{}">\
+                    <button type="submit" class="btn btn-primary">Confirm</button>\
+                </form>', 1
             )
+
+    def render_delete(self, value):
+        return format_html(
+            '<form method="POST" action="{}"> \
+                <input type="hidden" name="id" value="{}">\
+                <button type="submit" class="btn btn-danger">Delete</button>\
+            </form>', reverse_lazy("reservation:remove"), value
+        )

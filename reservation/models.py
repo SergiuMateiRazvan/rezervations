@@ -7,6 +7,6 @@ class Reservation(models.Model):
     time = models.TimeField(null=False)
     customer_name = models.CharField(max_length=100, null=False)
     customer_email = models.EmailField(null=False)
-    mentions = models.CharField(max_length=250)
+    mentions = models.CharField(max_length=250, null=True)
     no_persons = models.IntegerField(null=False)
     confirmed = models.BooleanField(default=False)
