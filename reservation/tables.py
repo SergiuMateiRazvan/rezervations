@@ -28,7 +28,7 @@ class ReservationsTable(tables.Table):
     confirmed = tables.Column(attrs={
         "th": {"scope": "col"}
     })
-    delete = tables.Column(verbose_name="", empty_values=(), accessor="id")
+    delete = tables.Column(verbose_name="", empty_values=())
 
     class Meta:
         model = Reservation
@@ -38,21 +38,21 @@ class ReservationsTable(tables.Table):
         super().__init__(*args, **kwargs)
         self.counter = itertools.count()
 
-    def render_confirmed(self, value):
+    def render_confirmed(self, value, record):
         if value:
             return "Confirmed"
         else:
             return format_html(
-                '<form method="POST" action="">\
+                '<form method="POST" action="{}">\
                     <input type="hidden" name="id" value="{}">\
                     <button type="submit" class="btn btn-primary">Confirm</button>\
-                </form>', 1
+                </form>', reverse_lazy("reservation:confirm"), record.id
             )
 
-    def render_delete(self, value):
+    def render_delete(self, value, record):
         return format_html(
             '<form method="POST" action="{}"> \
                 <input type="hidden" name="id" value="{}">\
                 <button type="submit" class="btn btn-danger">Delete</button>\
-            </form>', reverse_lazy("reservation:remove"), value
+            </form>', reverse_lazy("reservation:remove"), record.id
         )
