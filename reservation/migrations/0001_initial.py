@@ -4,23 +4,29 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Reservation',
+            name="Reservation",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('date', models.DateField()),
-                ('time', models.TimeField()),
-                ('customer_name', models.CharField(max_length=100)),
-                ('customer_email', models.EmailField(max_length=254)),
-                ('mentions', models.CharField(max_length=250)),
-                ('confirmed', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("date", models.DateField()),
+                ("time", models.TimeField()),
+                ("customer_name", models.CharField(max_length=100)),
+                ("customer_email", models.EmailField(max_length=254)),
+                ("mentions", models.CharField(max_length=250)),
+                ("confirmed", models.BooleanField(default=False)),
             ],
         ),
     ]

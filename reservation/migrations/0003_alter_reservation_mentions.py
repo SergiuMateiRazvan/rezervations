@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('reservation', '0002_reservation_no_persons'),
+        ("reservation", "0002_reservation_no_persons"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='reservation',
-            name='mentions',
+            model_name="reservation",
+            name="mentions",
             field=models.CharField(max_length=250, null=True),
         ),
     ]

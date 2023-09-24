@@ -1,5 +1,5 @@
-from django.core.mail import send_mail, mail_admins
 from django.conf import settings
+from django.core.mail import mail_admins, send_mail
 
 
 def mail_customer(reservation, confirmed=True):
@@ -33,5 +33,5 @@ def mail_admin(reservation):
         </body>
         </html>
         
-        """
+        """,
     )

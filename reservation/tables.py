@@ -3,31 +3,18 @@ import itertools
 import django_tables2 as tables
 from django.urls import reverse_lazy
 from django.utils.html import format_html
+
 from .models import Reservation
 
 
 class ReservationsTable(tables.Table):
-    customer_name = tables.Column(attrs={
-        "th": {"scope": "col"}
-    })
-    customer_email = tables.Column(attrs={
-        "th": {"scope": "col"}
-    })
-    no_persons = tables.Column(attrs={
-        "th": {"scope": "col"}
-    })
-    date = tables.Column(attrs={
-        "th": {"scope": "col"}
-    })
-    time = tables.Column(attrs={
-        "th": {"scope": "col"}
-    })
-    mentions = tables.Column(attrs={
-        "th": {"scope": "col"}
-    })
-    confirmed = tables.Column(attrs={
-        "th": {"scope": "col"}
-    })
+    customer_name = tables.Column(attrs={"th": {"scope": "col"}})
+    customer_email = tables.Column(attrs={"th": {"scope": "col"}})
+    no_persons = tables.Column(attrs={"th": {"scope": "col"}})
+    date = tables.Column(attrs={"th": {"scope": "col"}})
+    time = tables.Column(attrs={"th": {"scope": "col"}})
+    mentions = tables.Column(attrs={"th": {"scope": "col"}})
+    confirmed = tables.Column(attrs={"th": {"scope": "col"}})
     delete = tables.Column(verbose_name="", empty_values=())
 
     class Meta:
@@ -42,7 +29,9 @@ class ReservationsTable(tables.Table):
                 '<form method="POST" action="{}">\
                     <input type="hidden" name="id" value="{}">\
                     <button type="submit" class="btn btn-primary">Confirm</button>\
-                </form>', reverse_lazy("reservation:confirm"), record.id
+                </form>',
+                reverse_lazy("reservation:confirm"),
+                record.id,
             )
 
     def render_delete(self, value, record):
@@ -50,7 +39,9 @@ class ReservationsTable(tables.Table):
             '<form method="POST" action="{}"> \
                 <input type="hidden" name="id" value="{}">\
                 <button type="submit" class="btn btn-danger">Delete</button>\
-            </form>', reverse_lazy("reservation:remove"), record.id
+            </form>',
+            reverse_lazy("reservation:remove"),
+            record.id,
         )
 
 
