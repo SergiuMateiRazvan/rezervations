@@ -8,8 +8,9 @@ from .models import Reservation
 
 
 class ReservationsTable(tables.Table):
-    no = tables.Column(verbose_name="No#", empty_values=())
-    customer_name = tables.Column(attrs={"th": {"scope": "col"}})
+    customer_name = tables.Column(
+        attrs={"th": {"scope": "col"}}, footer=lambda table: f"Total: {len(table.data)}"
+    )
     customer_email = tables.Column(attrs={"th": {"scope": "col"}})
     no_persons = tables.Column(attrs={"th": {"scope": "col"}})
     date = tables.Column(attrs={"th": {"scope": "col"}})
@@ -30,7 +31,6 @@ class ReservationsTable(tables.Table):
             "mentions",
         )
         sequence = (
-            "no",
             "customer_name",
             "customer_email",
             "no_persons",
@@ -63,9 +63,6 @@ class ReservationsTable(tables.Table):
             reverse_lazy("reservation:remove"),
             record.id,
         )
-
-    def render_no(self, bound_row):
-        return bound_row.row_counter + 1
 
 
 class ExpiredReservationsTable(ReservationsTable):
