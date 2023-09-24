@@ -42,6 +42,7 @@ def delete(request):
         data = request.POST.dict()
         reservation_id = data.get("id")
         reservation = get_object_or_404(Reservation, pk=reservation_id)
+        mail_customer(reservation, confirmed=False)
         reservation.delete()
     return HttpResponseRedirect(reverse_lazy("reservation:reservations_list"))
 
