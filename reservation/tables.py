@@ -8,6 +8,7 @@ from .models import Reservation
 
 
 class ReservationsTable(tables.Table):
+    no = tables.Column(verbose_name="No#", empty_values=())
     customer_name = tables.Column(attrs={"th": {"scope": "col"}})
     customer_email = tables.Column(attrs={"th": {"scope": "col"}})
     no_persons = tables.Column(attrs={"th": {"scope": "col"}})
@@ -20,6 +21,25 @@ class ReservationsTable(tables.Table):
     class Meta:
         model = Reservation
         attrs = {"class": "table"}
+        fields = (
+            "customer_name",
+            "customer_email",
+            "no_persons",
+            "date",
+            "time",
+            "mentions",
+        )
+        sequence = (
+            "no",
+            "customer_name",
+            "customer_email",
+            "no_persons",
+            "date",
+            "time",
+            "mentions",
+            "confirmed",
+            "delete",
+        )
 
     def render_confirmed(self, value, record):
         if value:
@@ -44,6 +64,9 @@ class ReservationsTable(tables.Table):
             record.id,
         )
 
+    def render_no(self, bound_row):
+        return bound_row.row_counter + 1
+
 
 class ExpiredReservationsTable(ReservationsTable):
     delete = None
@@ -51,6 +74,24 @@ class ExpiredReservationsTable(ReservationsTable):
     class Meta:
         model = Reservation
         attrs = {"class": "table table-secondary text-muted"}
+        fields = (
+            "customer_name",
+            "customer_email",
+            "no_persons",
+            "date",
+            "time",
+            "mentions",
+        )
+        sequence = (
+            "no",
+            "customer_name",
+            "customer_email",
+            "no_persons",
+            "date",
+            "time",
+            "mentions",
+            "confirmed",
+        )
 
     def render_confirmed(self, value, record):
         return "Confirmed" if value else "Not confirmed"
