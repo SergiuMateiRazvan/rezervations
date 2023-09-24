@@ -1,14 +1,17 @@
+from datetime import datetime
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 import django_tables2 as tables
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import TemplateView
 
 from .forms import AddReservationForm
 from .mailing import mail_customer, mail_admin
 from .models import Reservation
-from .tables import ReservationsTable
+from .tables import ReservationsTable, ExpiredReservationsTable
 
 
 def index(request):
@@ -22,11 +25,15 @@ def index(request):
     return render(request, "index.html", {"form": form})
 
 
-class ReservationListView(LoginRequiredMixin, tables.SingleTableView):
+class ReservationListView(LoginRequiredMixin, tables.MultiTableMixin, TemplateView):
     template_name = 'reservations_admin.html'
     paginate_by = 10
-    queryset = Reservation.objects.all()
-    table_class = ReservationsTable
+    queryset = Reservation.objects.filter(date__gte=datetime.today()).all()
+    queryset_2 = Reservation.objects.filter(date__lt=datetime.today()).all()
+    tables = [
+        ReservationsTable(queryset),
+        ExpiredReservationsTable(queryset_2)
+    ] if len(queryset_2) else [ReservationsTable(queryset)]
 
 
 @csrf_exempt

@@ -34,10 +34,6 @@ class ReservationsTable(tables.Table):
         model = Reservation
         attrs = {"class": "table"}
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.counter = itertools.count()
-
     def render_confirmed(self, value, record):
         if value:
             return "Confirmed"
@@ -56,3 +52,14 @@ class ReservationsTable(tables.Table):
                 <button type="submit" class="btn btn-danger">Delete</button>\
             </form>', reverse_lazy("reservation:remove"), record.id
         )
+
+
+class ExpiredReservationsTable(ReservationsTable):
+    delete = None
+
+    class Meta:
+        model = Reservation
+        attrs = {"class": "table table-secondary text-muted"}
+
+    def render_confirmed(self, value, record):
+        return "Confirmed" if value else "Not confirmed"
