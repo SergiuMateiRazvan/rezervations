@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 
 from .forms import AddReservationForm
+from .mailing import mail_customer, mail_admin
 from .models import Reservation
 from .tables import ReservationsTable
 
@@ -16,6 +17,7 @@ def index(request):
         if form.is_valid():
             reservation = form.save(commit=False)
             reservation.save()
+            mail_admin(reservation)
             return redirect("reservation:index")
     return render(request, "index.html", {"form": form})
 
@@ -43,6 +45,7 @@ def confirm(request):
         data = request.POST.dict()
         reservation_id = data.get("id")
         reservation = get_object_or_404(Reservation, pk=reservation_id)
+        mail_customer(reservation)
         reservation.confirmed = True
         reservation.save()
     return HttpResponseRedirect(reverse_lazy("reservation:reservations_list"))

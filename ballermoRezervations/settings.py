@@ -136,3 +136,16 @@ DATABASES = {
 LOGOUT_REDIRECT_URL = "reservation:index"
 CSRF_TRUSTED_ORIGINS = ["https://web-production-b965.up.railway.app", "https://www.web-production-b965.up.railway.app"]
 CSRF_COOKIE_SECURE = True
+
+# Mailing
+EMAIL_USE_SSL = True
+EMAIL_USE_TLS = False
+EMAIL_ADDR = os.getenv("EMAIL")
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_HOST_USER = os.getenv("EMAIL")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASSWORD")
+ADMINS = [(os.getenv("ADMIN_NAME"), os.getenv("ADMIN_EMAIL"))]
+SERVER_EMAIL = EMAIL_ADDR
+RESERVATIONS_PAGE = os.getenv("RESERVATIONS_PAGE")
+
