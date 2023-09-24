@@ -151,3 +151,18 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASSWORD")
 ADMINS = [(os.getenv("ADMIN_NAME"), os.getenv("ADMIN_EMAIL"))]
 SERVER_EMAIL = EMAIL_ADDR
 RESERVATIONS_PAGE = os.getenv("RESERVATIONS_PAGE")
+
+LOGGING = {
+    "version": 1,  # the dictConfig format version
+    "disable_existing_loggers": False,  # retain the default loggers
+    "formatters": {
+        "verbose": {
+            "format": "{name} {levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
+        },
+    },
+}
