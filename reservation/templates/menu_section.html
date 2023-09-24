@@ -1,0 +1,20 @@
+{% load static %}
+<section class="menu-section sec-padding" id="our-menu">
+    <div class="container-b">
+        <div class="row-b">
+            <div class="section-title">
+                <h2 data-title="Dai un' occhiata">il nostro menu</h2>
+            </div>
+        </div>
+        <div class="row-b">
+            <div class="menu-tabs">
+                <a href="{% static 'reservation/files/MenuCibo.pdf' %}" target="_blank">
+                    <button type="button" class="menu-tab-item active-b" data-target="#dinner">Gastronomia</button>
+                </a>
+                <a href="{% static 'reservation/files/CartaVini.pdf' %}" target="_blank">
+                    <button type="button" class="menu-tab-item" data-target="#drinks">carta dei vini</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

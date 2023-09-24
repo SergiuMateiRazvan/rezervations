@@ -1,0 +1,27 @@
+{% load static %}
+<section class="home-section" id="home">
+    <div class="home-bg"></div>
+    <div class="container-b">
+
+        <div class="row min-vh-100 align-items-center-b">
+            <div class="home-text">
+                <a href="#"><img src="{% static 'reservation/images/logo.png' %}" alt="logo" height="110"
+                                 width="580"></a>
+                <!--<h1>Bellari</h1>-->
+                <p>dalla tradizione al mare</p>
+                <a href="#our-menu" class="btn-b btn-default-b">Il nostro menu</a>
+                <a href="#book-table" class="btn-b btn-default-b">Prenota un Tavolo</a>
+                <a href="tel:+393281344443" class="btn-b btn-default-b">Chiamaci</a>
+                {% if user.is_authenticated %}
+                    <div class="see-reservations-div">
+                        <button class="btn-b btn-default-b">
+                            <a href="{% url 'reservation:reservations_list' %}" class="text-decoration-none text-reset">
+                                See reservations
+                            </a>
+                        </button>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>

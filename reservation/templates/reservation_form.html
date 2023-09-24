@@ -2,10 +2,37 @@
 {% bootstrap_css %}
 {% bootstrap_javascript jquery='full' %}
 {{ form.media }}
-<form method="post">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        <button class="button is-success is-fullwidth is-medium mt-5" type="submit">
-            Submit
-        </button>
-</form>
+{% load static %}
+<link rel="stylesheet" href="{% static 'reservation/style.css' %}"/>
+<section class="book-table sec-padding" id="book-table">
+    <div class="table-bg"></div>
+    <div class="container-b">
+        <div class="row-b">
+            <div class="section-title">
+                <h2 data-title="Prenotazioni">Prenota un Tavolo</h2>
+            </div>
+        </div>
+        <div class="row-b min-vh-100">
+            <form
+                    method="POST"
+                    style="background-color: rgba(0, 0, 0, 0.7);
+                           padding-top: 34px;
+                           display: flex;
+                           align-items: center;
+                           justify-content: center;
+                           width: 54%;
+                           border-radius: 10px;
+                           margin: 10px auto auto;
+                           padding-bottom: 60px;"
+            >
+                <div style="width: 90%; margin: auto;">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <div style="text-align: center;">
+                        <input type="submit" class="btn-b btn-default-b" value="invia"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

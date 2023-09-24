@@ -12,6 +12,7 @@ class ReservationsTable(tables.Table):
         attrs={"th": {"scope": "col"}}, footer=lambda table: f"Total: {len(table.data)}"
     )
     customer_email = tables.Column(attrs={"th": {"scope": "col"}})
+    customer_phone = tables.Column(attrs={"th": {"scope": "col"}})
     no_persons = tables.Column(attrs={"th": {"scope": "col"}})
     date = tables.Column(attrs={"th": {"scope": "col"}})
     time = tables.Column(attrs={"th": {"scope": "col"}})
@@ -25,6 +26,7 @@ class ReservationsTable(tables.Table):
         fields = (
             "customer_name",
             "customer_email",
+            "customer_phone",
             "no_persons",
             "date",
             "time",
@@ -33,6 +35,7 @@ class ReservationsTable(tables.Table):
         sequence = (
             "customer_name",
             "customer_email",
+            "customer_phone",
             "no_persons",
             "date",
             "time",
@@ -74,6 +77,7 @@ class ExpiredReservationsTable(ReservationsTable):
         fields = (
             "customer_name",
             "customer_email",
+            "customer_phone",
             "no_persons",
             "date",
             "time",
@@ -83,7 +87,7 @@ class ExpiredReservationsTable(ReservationsTable):
             "no",
             "customer_name",
             "customer_email",
-            "no_persons",
+            "customer_phone" "no_persons",
             "date",
             "time",
             "mentions",

@@ -8,7 +8,7 @@ from .models import Reservation
 
 class AddReservationForm(forms.ModelForm):
     mentions = forms.CharField(
-        widget=forms.Textarea(attrs={"class": "form-control"}), required=False
+        widget=forms.Textarea(attrs={"class": "box-b"}), required=False
     )
 
     class Meta:
@@ -19,40 +19,60 @@ class AddReservationForm(forms.ModelForm):
             "no_persons",
             "customer_name",
             "customer_email",
+            "customer_phone",
             "mentions",
         )
 
         widgets = {
-            "customer_name": forms.TextInput(attrs={"class": "form-control"}),
-            "customer_email": forms.EmailInput(attrs={"class": "form-control"}),
+            "customer_name": forms.TextInput(
+                attrs={"class": "box-b", "placeholder": "Scrivi il tuo nome e cognome"}
+            ),
+            "customer_email": forms.EmailInput(
+                attrs={"class": "box-b", "placeholder": "Scrivi il tuo indirizzo email"}
+            ),
+            "customer_phone": forms.NumberInput(
+                attrs={
+                    "class": "box-b",
+                    "placeholder": "Scrivi il tuo numero di telefono",
+                }
+            ),
             "date": DatePickerInput(
-                attrs={"class": "form-control"},
+                attrs={"class": "box-b"},
                 options={
                     "locale": "it",
                     "format": "DD/MM/YYYY",
                     "showTodayButton": True,
                     "maxDate": datetime.date.today() + datetime.timedelta(days=14),
                     "minDate": datetime.date.today(),
-                    # 'todayHighlight': True
-                    # 'today': "Today",
                 },
             ),
-            "time": TimePickerInput(
-                attrs={"class": "form-control"},
-                options={
-                    "locale": "it",
-                    "format": "HH:mm",
-                    "stepping": 30,
-                    "minDate": (
-                        datetime.datetime.today()
-                        - datetime.timedelta(
-                            hours=datetime.datetime.today().hour,
-                            minutes=datetime.datetime.today().minute,
-                        )
-                        + datetime.timedelta(hours=19)
-                    ).hour,
-                    "maxDate": datetime.date.today() + datetime.timedelta(hours=23),
-                },
+            "time": forms.Select(
+                choices=(
+                    ("19:00", "19:00"),
+                    ("19:30", "19:30"),
+                    ("20:00", "20:00"),
+                    ("20:30", "20:30"),
+                    ("21:00", "21:00"),
+                    ("21:30", "21:30"),
+                ),
+                attrs={"class": "box-b", "placeholder": "Seleziona l'orario"},
             ),
-            "no_persons": forms.NumberInput(attrs={"class": "form-control"}),
+            # "time": TimePickerInput(
+            #     attrs={"class": "box-b"},
+            #     options={
+            #         "locale": "it",
+            #         "format": "HH:mm",
+            #         "stepping": 30,
+            #         "minDate": (
+            #             datetime.datetime.today()
+            #             - datetime.timedelta(
+            #                 hours=datetime.datetime.today().hour,
+            #                 minutes=datetime.datetime.today().minute,
+            #             )
+            #             + datetime.timedelta(hours=19)
+            #         ).hour,
+            #         "maxDate": datetime.date.today() + datetime.timedelta(hours=23),
+            #     },
+            # ),
+            "no_persons": forms.NumberInput(attrs={"class": "box-b"}),
         }
