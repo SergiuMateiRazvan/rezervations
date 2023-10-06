@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 class Reservation(models.Model):
     date = models.DateField(null=False)
-    time = models.TimeField(null=False)
+    time = models.CharField(null=False, max_length=5)
     customer_name = models.CharField(max_length=100, null=False)
     customer_email = models.EmailField(null=False)
     customer_phone = models.CharField(max_length=12, null=False)
