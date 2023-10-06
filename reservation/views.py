@@ -28,13 +28,18 @@ def index(request):
 class ReservationListView(LoginRequiredMixin, tables.MultiTableMixin, TemplateView):
     template_name = "reservations_admin.html"
     paginate_by = 10
-    queryset = Reservation.objects.filter(date__gte=datetime.today()).all()
-    queryset_2 = Reservation.objects.filter(date__lt=datetime.today()).all()
-    tables = (
-        [ReservationsTable(queryset), ExpiredReservationsTable(queryset_2)]
-        if len(queryset_2)
-        else [ReservationsTable(queryset)]
-    )
+
+    def get_context_data(self, **kwargs):
+        queryset = Reservation.objects.filter(date__gte=datetime.today()).all()
+        queryset_2 = Reservation.objects.filter(date__lt=datetime.today()).all()
+
+        return {
+            "tables": (
+                [ReservationsTable(queryset), ExpiredReservationsTable(queryset_2)]
+                if len(queryset_2)
+                else [ReservationsTable(queryset)]
+            )
+        }
 
 
 @csrf_exempt

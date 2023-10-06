@@ -156,15 +156,9 @@ LOGGING = {
     "version": 1,  # the dictConfig format version
     "disable_existing_loggers": False,  # retain the default loggers
     "handlers": {
-        "console": {
-            "class": "logging.StreamHandler",
-            "formatter": "verbose"
-        },
+        "console": {"class": "logging.StreamHandler", "formatter": "verbose"},
     },
-    "root": {
-        "handlers": ["console"],
-        "level": "DEBUG"
-    },
+    "root": {"handlers": ["console"], "level": "DEBUG"},
     "formatters": {
         "verbose": {
             "format": "{name} {levelname} {asctime} {module} {process:d} {thread:d} {message}",
@@ -177,8 +171,8 @@ LOGGING = {
     },
     "loggers": {
         "django": {
-            "handlers": ['console'],
-            "level": os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+            "handlers": ["console"],
+            "level": os.getenv("DJANGO_LOG_LEVEL", "DEBUG"),
             "propagate": False,
         },
     },
