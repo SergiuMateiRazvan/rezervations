@@ -84,10 +84,10 @@ class ExpiredReservationsTable(ReservationsTable):
             "mentions",
         )
         sequence = (
-            "no",
             "customer_name",
             "customer_email",
-            "customer_phone" "no_persons",
+            "customer_phone",
+            "no_persons",
             "date",
             "time",
             "mentions",
